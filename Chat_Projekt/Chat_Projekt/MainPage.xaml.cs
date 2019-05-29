@@ -16,7 +16,7 @@ namespace Chat_Projekt
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
-        static IPAddress ipAddress = IPAddress.Parse("192.168.2.106");
+        static IPAddress ipAddress = IPAddress.Parse("192.168.0.5");
         static IPEndPoint remoteEP = new IPEndPoint(ipAddress, 1600);
         byte[] sendMsg = new byte[4096];
         byte[] receivedMsg = new byte[4096];
