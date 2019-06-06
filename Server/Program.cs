@@ -38,18 +38,20 @@ namespace Server
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 1600);
             Socket listener = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
-
             listener.Bind(localEndPoint);
 
-            listener.Listen(10);
-
-            Console.WriteLine("Waiting for a connection...");
-            
-            Socket handler = listener.Accept();
             while (true)
             {
 
-                if (SocketConnected(handler))
+
+                listener.Listen(10);
+
+                Console.WriteLine("Waiting for a connection...");
+
+                Socket handler = listener.Accept();
+
+
+                while (SocketConnected(handler))
                 {
                     Console.WriteLine("verbunden");
                     handler.Receive(receivedMsg);
@@ -68,7 +70,11 @@ namespace Server
                     Console.WriteLine(Encoding.ASCII.GetString(bar));
                     handler.Send(sendMsg);
                 }
-                
+
+                handler.Shutdown(SocketShutdown.Both);
+                handler.Disconnect(true);
+
+
             }
         }
     }
