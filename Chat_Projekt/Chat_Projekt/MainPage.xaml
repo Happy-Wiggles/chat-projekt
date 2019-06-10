@@ -10,12 +10,11 @@
     <StackLayout>
         <!-- Place new controls here -->
         <Label Text="Chat" FontSize="Large"/>
-        <Label x:Name="Ausgabe" Text="..." FontSize="Large"/>
+        <Label x:Name="Ausgabe" Text="..." FontSize="Large" Margin="10"/>
         <Editor x:Name="Eingabe" Placeholder="Schreiben Sie etwas!">
             
         </Editor>
         <Button Text="Senden" x:Name="SendenButton" Margin="10" Clicked="SendenButton_Clicked"/>
-
     </StackLayout>
 
 </ContentPage>
