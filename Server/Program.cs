@@ -11,7 +11,6 @@ namespace Server
     {
         private static byte[] buffer = new byte[4096];
         private static List<Socket> Sockets = new List<Socket>();
-        private static List<Socket> Empfaenger = new List<Socket>();
         private static Socket listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
         static void Main(string[] args)
@@ -69,27 +68,19 @@ namespace Server
                     Console.WriteLine(text);
                 }
 
-                Empfaenger.Clear();
                 for (int i = 0; i < Sockets.Count; i++)
                 {
                     if(Sockets[i]!= null)
                     {
-                        Empfaenger.Add(Sockets[i]);
-                      
+                        Sockets[i].BeginSend(dataBuff, 0, dataBuff.Length, SocketFlags.None, new AsyncCallback(sendCallback), Sockets[i]);
+
                     }
                 }
-                for (int i = 0; i < Empfaenger.Count; i++)
-                {
-                        Empfaenger[i].BeginSend(dataBuff, 0, dataBuff.Length, SocketFlags.None, new AsyncCallback(sendCallback), Empfaenger[i]);
-                }
-
-
                 handler.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(receiveCallback), handler);
             }
             catch(Exception e)
             {
-                handler.Close();
-                handler = null;
+                Sockets.Remove(handler);
             }
         }
         private static void sendCallback(IAsyncResult AR)
