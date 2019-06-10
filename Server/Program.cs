@@ -2,80 +2,65 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 namespace Server
 {
     class Program
     {
-        public static bool SocketConnected(Socket s)
-        {
-            bool part1 = s.Poll(1000, SelectMode.SelectRead);
-            bool part2 = (s.Available == 0);
-            if (part1 && part2)
-                return false;
-            else
-                return true;
-        }
+        private static byte[] buffer = new byte[4096];
+        private static List<Socket> Sockets = new List<Socket>();
+        private static Socket listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
         static void Main(string[] args)
         {
-            byte[] sendMsg = new byte[4096];
-            sendMsg = Encoding.ASCII.GetBytes("Nachricht erhalten!");
-            byte[] receivedMsg = new byte[4096];
-            String myIp = "";
-
+            setupServer();
+            Console.ReadLine();
+        }
+        private static void setupServer()
+        {
             IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
             IPAddress ipAddress = ipHostInfo.AddressList[0];
-
-            
 
             foreach (IPAddress ip in ipHostInfo.AddressList)
             {
                 if (ip.AddressFamily == AddressFamily.InterNetwork)
                 {
                     ipAddress = ip;
-                    myIp = ip.ToString();
                 }
             }
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 1600);
-            Socket listener = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-
             listener.Bind(localEndPoint);
-
-            while (true)
+            listener.Listen(10);
+            Console.WriteLine("Waiting for a connection...");
+            listener.BeginAccept(new AsyncCallback(acceptCallback), null);
+        }
+        private static void acceptCallback(IAsyncResult AR)
+        {
+            Socket handler = listener.EndAccept(AR);
+            Sockets.Add(handler);
+            handler.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(receiveCallback), handler);
+            listener.BeginAccept(new AsyncCallback(acceptCallback), null);
+        }
+        private static void receiveCallback(IAsyncResult AR)
+        {
+            Socket handler = (Socket)AR.AsyncState;
+            int received = handler.EndReceive(AR);
+            byte[] dataBuff = new byte[received];
+            Array.Copy(buffer, dataBuff, received);
+            string text = Encoding.ASCII.GetString(dataBuff);
+            if (!(text == ""))
             {
-
-
-                listener.Listen(10);
-
-                Console.WriteLine("Waiting for a connection...");
-
-                Socket handler = listener.Accept();
-
-
-                while (SocketConnected(handler))
-                {
-                    Console.WriteLine("verbunden");
-                    handler.Receive(receivedMsg);
-
-                    
-                    int i = receivedMsg.Length - 1;
-                    while (receivedMsg[i] == 0)
-                        --i;
-
-                    byte[] bar = new byte[i + 1];
-                    for (int x = 0; x < i + 1; x++)
-                    {
-                        bar[x] = receivedMsg[x];
-                    }
-
-                    Console.WriteLine(Encoding.ASCII.GetString(bar));
-                    handler.Send(sendMsg);
-                }
-
-                handler.Shutdown(SocketShutdown.Both);
-                handler.Disconnect(true);
-
-
+                Console.WriteLine(text);
             }
+            handler.BeginSend(dataBuff, 0, dataBuff.Length, SocketFlags.None, new AsyncCallback(sendCallback), handler);
+            handler.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(receiveCallback), handler);
+        }
+        private static void sendCallback(IAsyncResult AR)
+        {
+            Socket handler = (Socket)AR.AsyncState;
+            handler.EndSend(AR);
         }
     }
 }
