@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Chat_Projekt.Page1">
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <Editor AbsoluteLayout.LayoutBounds=".5,.4,.883,.1" AbsoluteLayout.LayoutFlags="All" x:Name="Eingabe" Placeholder="Username"/>
+            <Button AbsoluteLayout.LayoutBounds=".5,.5,.9,.1" AbsoluteLayout.LayoutFlags="All" Text="Bestätigen" x:Name="bestaetigenButton" Margin="10" Clicked="BestaetigenButton_Clicked"/>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -14,19 +14,21 @@ namespace Chat_Projekt
 {
     
     [DesignTimeVisible(false)]
-    public partial class MainPage : ContentPage
+    public partial class Page2 : ContentPage
     {
         static IPAddress ipAddress = IPAddress.Parse("192.168.2.107"); //192.168.2.107 //79.197.19.253
         static IPEndPoint remoteEP = new IPEndPoint(ipAddress, 1600);
         static Socket client = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-      
+        string name = "";
         
-        public MainPage()
+        public Page2(string name)
         {
             InitializeComponent();
             loopConnect();
             Thread receiverThread = new Thread(()=> loopReceive());
             receiverThread.Start();
+            this.name = name;
+            username.Text = name;
         }
 
         private void loopReceive()
@@ -36,18 +38,26 @@ namespace Chat_Projekt
             while (true)
             {
                 byte[] receivedMsg = new byte[4096];
-                
-                client.Receive(receivedMsg);
-
-                Device.BeginInvokeOnMainThread(() =>
+                try
                 {
-                    Ausgabe.Text = Ausgabe.Text + "\n" + Encoding.ASCII.GetString(receivedMsg);
-                    scrollBox.ScrollToAsync(0,scrollToPixel,true);
-                    scrollToPixel = scrollToPixel + 100;
-                });
+
+                    client.Receive(receivedMsg);
+
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        Ausgabe.Text = Ausgabe.Text + "\n" + Encoding.ASCII.GetString(receivedMsg);
+                        scrollBox.ScrollToAsync(0, scrollToPixel, true);
+                        scrollToPixel = scrollToPixel + 100;
+                    });
+                }
+                catch (Exception e)
+                {
+
+                }
+
             }
         }
-
+       
         private static void loopConnect()
         {
             while (!client.Connected)
@@ -63,9 +73,10 @@ namespace Chat_Projekt
 
                 if (message != null)
                 {
-                    sendMsg = Encoding.ASCII.GetBytes(Eingabe.Text);
+                    sendMsg = Encoding.ASCII.GetBytes(name + ": " + Eingabe.Text);
                     if (client.Connected)
                     {
+
                         client.Send(sendMsg);
                     }
                     else
