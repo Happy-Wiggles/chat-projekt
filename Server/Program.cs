@@ -13,17 +13,15 @@ namespace Server
         private static List<Socket> Sockets = new List<Socket>();
         private static List<Socket> Empf = new List<Socket>();
         private static Socket listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
         static void Main(string[] args)
         {
             setupServer();
-            Console.ReadLine();
+            while (42 == 42){}
         }
         private static void setupServer()
         {
             IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
             IPAddress ipAddress = ipHostInfo.AddressList[0];
-
             foreach (IPAddress ip in ipHostInfo.AddressList)
             {
                 if (ip.AddressFamily == AddressFamily.InterNetwork)
@@ -47,9 +45,8 @@ namespace Server
         private static void receiveCallback(IAsyncResult AR)
         {
             Socket handler = (Socket)AR.AsyncState;
-            
-            string text;
-            byte[] dataBuff;
+            string text="";
+            byte[] dataBuff=new byte[1];
             try 
             {
                 int received = handler.EndReceive(AR);
@@ -59,32 +56,26 @@ namespace Server
                     Array.Copy(buffer, dataBuff, received);
                     text = Encoding.ASCII.GetString(dataBuff);
                 }
-                else
-                {
-                    text = "";
-                    dataBuff = Encoding.ASCII.GetBytes(text);
-                }
                 if (!(text == ""))
-                {
-                    Console.WriteLine(text);
-                }
-
-                Empf.Clear();
-                for (int i = 0; i < Sockets.Count; i++)
-                {
-                    if(Sockets[i]!= null)
                     {
-                        Empf.Add(Sockets[i]);
+                        Console.WriteLine(text);
+                
+                    Empf.Clear();
+                    for (int i = 0; i < Sockets.Count; i++)
+                    {
+                        if(Sockets[i]!= null)
+                        {
+                            Empf.Add(Sockets[i]);
+                        }
+                    }
+                    for (int i = 0; i < Empf.Count; i++)
+                    {
+                        Empf[i].BeginSend(dataBuff, 0, dataBuff.Length, SocketFlags.None, new AsyncCallback(sendCallback), Empf[i]);
                     }
                 }
-                for (int i = 0; i < Empf.Count; i++)
-                {
-                    Empf[i].BeginSend(dataBuff, 0, dataBuff.Length, SocketFlags.None, new AsyncCallback(sendCallback), Empf[i]);
-                }
-
                 handler.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(receiveCallback), handler);
             }
-            catch(Exception e)
+            catch
             {
                 Sockets.Remove(handler);
             }
