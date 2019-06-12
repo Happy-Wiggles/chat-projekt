@@ -6,15 +6,18 @@
              mc:Ignorable="d"
              x:Class="Chat_Projekt.MainPage" Title="Chat">
 
-    
-    <StackLayout>
+    <ContentPage.Content>
         <!-- Place new controls here -->
-        <Label Text="Chat" FontSize="Large"/>
-        <Label x:Name="Ausgabe" Text="..." FontSize="Large" Margin="10"/>
-        <Editor x:Name="Eingabe" Placeholder="Schreiben Sie etwas!">
-            
-        </Editor>
-        <Button Text="Senden" x:Name="SendenButton" Margin="10" Clicked="SendenButton_Clicked"/>
-    </StackLayout>
+        <AbsoluteLayout>
+            <Label x:Name="username" AbsoluteLayout.LayoutBounds=".5,0,.9,.1" AbsoluteLayout.LayoutFlags="All" Text="Name" FontSize="Large"/>
+            <ScrollView x:Name="scrollBox" HorizontalScrollBarVisibility="Always"  AbsoluteLayout.LayoutBounds=".5,.2,.9,.7" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout x:Name="messageStack">
+                    <Label x:Name="Ausgabe" FontSize="Medium"/>
+                </StackLayout>
+            </ScrollView>
+            <Editor AbsoluteLayout.LayoutBounds=".5,.9,.883,.1" AbsoluteLayout.LayoutFlags="All" x:Name="Eingabe" Placeholder="Schreiben Sie etwas!"/>
+            <Button AbsoluteLayout.LayoutBounds=".5,1,.9,.1" AbsoluteLayout.LayoutFlags="All" Text="Senden" x:Name="SendenButton" Margin="10" Clicked="SendenButton_Clicked"/>
+        </AbsoluteLayout>
+    </ContentPage.Content>
 
 </ContentPage>

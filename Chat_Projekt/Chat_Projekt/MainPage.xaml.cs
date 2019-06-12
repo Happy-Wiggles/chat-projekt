@@ -16,7 +16,7 @@ namespace Chat_Projekt
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
-        static IPAddress ipAddress = IPAddress.Parse("79.197.19.253"); //192.168.2.107
+        static IPAddress ipAddress = IPAddress.Parse("192.168.2.107"); //192.168.2.107 //79.197.19.253
         static IPEndPoint remoteEP = new IPEndPoint(ipAddress, 1600);
         static Socket client = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
       
@@ -31,13 +31,19 @@ namespace Chat_Projekt
 
         private void loopReceive()
         {
+            int scrollToPixel = 0;
+            
             while (true)
             {
                 byte[] receivedMsg = new byte[4096];
+                
                 client.Receive(receivedMsg);
+
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     Ausgabe.Text = Ausgabe.Text + "\n" + Encoding.ASCII.GetString(receivedMsg);
+                    scrollBox.ScrollToAsync(0,scrollToPixel,true);
+                    scrollToPixel = scrollToPixel + 100;
                 });
             }
         }
