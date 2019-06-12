@@ -22,10 +22,11 @@ namespace Chat_Projekt
             InitializeComponent();
             
         }
-
+        
         private async void BestaetigenButton_Clicked(object sender, EventArgs e)
         {
             name = Eingabe.Text;
+            await Navigation.PopAsync();
             await Navigation.PushAsync(new Page2(name));
         }
     }

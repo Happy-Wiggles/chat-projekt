@@ -18,11 +18,13 @@ namespace Chat_Projekt
     {
         static IPAddress ipAddress = IPAddress.Parse("192.168.2.107"); //192.168.2.107 //79.197.19.253
         static IPEndPoint remoteEP = new IPEndPoint(ipAddress, 1600);
-        static Socket client = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+        Socket client = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
         string name = "";
         
+
         public Page2(string name)
         {
+            
             InitializeComponent();
             loopConnect();
             Thread receiverThread = new Thread(()=> loopReceive());
@@ -30,14 +32,16 @@ namespace Chat_Projekt
             this.name = name;
             username.Text = name;
         }
-
+       
         private void loopReceive()
         {
             int scrollToPixel = 0;
             
             while (true)
             {
+
                 byte[] receivedMsg = new byte[4096];
+
                 try
                 {
 
@@ -58,7 +62,7 @@ namespace Chat_Projekt
             }
         }
        
-        private static void loopConnect()
+        private void loopConnect()
         {
             while (!client.Connected)
             {
