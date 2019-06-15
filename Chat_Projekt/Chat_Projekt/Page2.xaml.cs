@@ -16,16 +16,19 @@ namespace Chat_Projekt
     [DesignTimeVisible(false)]
     public partial class Page2 : ContentPage
     {
-        static IPAddress ipAddress = IPAddress.Parse("192.168.2.107"); //192.168.2.107 //79.197.19.253
-        static IPEndPoint remoteEP = new IPEndPoint(ipAddress, 1600);
-        Socket client = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+        static IPAddress ipAddress ; //192.168.2.107 //79.197.19.253
+        static IPEndPoint remoteEP ;
+        Socket client ;
         string name = "";
         
 
-        public Page2(string name)
+        public Page2(string name, IPAddress ip)
         {
             
             InitializeComponent();
+            ipAddress = ip;
+            remoteEP = new IPEndPoint(ipAddress, 1600);
+            client = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             loopConnect();
             Thread receiverThread = new Thread(()=> loopReceive());
             receiverThread.Start();
