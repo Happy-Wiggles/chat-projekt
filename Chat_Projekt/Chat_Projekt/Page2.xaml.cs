@@ -54,7 +54,7 @@ namespace Chat_Projekt
                         scrollToPixel = scrollToPixel + 100;
                     });
                 }
-                catch (Exception e)
+                catch 
                 {
 
                 }
