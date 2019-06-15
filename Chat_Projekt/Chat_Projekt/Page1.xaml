@@ -8,7 +8,9 @@
     <ContentPage.Content>
         <AbsoluteLayout>
             <Editor AbsoluteLayout.LayoutBounds=".5,.4,.883,.1" AbsoluteLayout.LayoutFlags="All" x:Name="Eingabe" Placeholder="Username"/>
+            <Editor AbsoluteLayout.LayoutBounds=".8,0,0.25,.05" AbsoluteLayout.LayoutFlags="All" x:Name="ipEingabe" Text="192.168.2.107 // 79.197.19.253" BackgroundColor="White"/>
             <Button AbsoluteLayout.LayoutBounds=".5,.5,.9,.1" AbsoluteLayout.LayoutFlags="All" Text="Bestätigen" x:Name="bestaetigenButton" Margin="10" Clicked="BestaetigenButton_Clicked"/>
+            
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

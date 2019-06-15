@@ -16,6 +16,7 @@ namespace Chat_Projekt
     public partial class Page1 : ContentPage
     {
         public string name = "";
+        IPAddress ip;
         public Page1()
         {
             
@@ -25,9 +26,16 @@ namespace Chat_Projekt
         
         private async void BestaetigenButton_Clicked(object sender, EventArgs e)
         {
+            IPAddress ip;
             name = Eingabe.Text;
+            if (!IPAddress.TryParse(ipEingabe.Text, out ip))
+            {
+                ipEingabe.BackgroundColor=Color.Red;
+                return;
+            }
+            ipEingabe.BackgroundColor = Color.Green;
             await Navigation.PopAsync();
-            await Navigation.PushAsync(new Page2(name));
+            await Navigation.PushAsync(new Page2(name,ip));
         }
     }
 }
