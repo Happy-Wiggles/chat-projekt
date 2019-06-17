@@ -33,6 +33,7 @@ namespace Server
             listener.Bind(localEndPoint);
             listener.Listen(10);
             Console.WriteLine("Waiting for a connection...");
+            Console.WriteLine("Please connect to: "+ ipAddress);
             listener.BeginAccept(new AsyncCallback(acceptCallback), null);
         }
         private static void acceptCallback(IAsyncResult AR)
