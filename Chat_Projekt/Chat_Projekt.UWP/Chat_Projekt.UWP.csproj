@@ -24,10 +24,10 @@
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <PackageCertificateThumbprint>95109A675249B28D0458530C2CC59082001940B2</PackageCertificateThumbprint>
-    <AppInstallerUri>C:\Users\Alex\Desktop\chat-uwp</AppInstallerUri>
+    <AppInstallerUri>C:\Users\Alex\Desktop\Neu\chat-uwp</AppInstallerUri>
     <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
-    <AppxPackageDir>C:\Users\Alex\Desktop\chat-uwp\</AppxPackageDir>
+    <AppxPackageDir>C:\Users\Alex\Desktop\Neu\chat-uwp\</AppxPackageDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>

@@ -77,16 +77,17 @@ namespace Chat_Projekt
                 byte[] sendMsg = new byte[4096];
                 string message = "";
                 message = Eingabe.Text;
-                if (!keepText)
-                    Eingabe.Text = "";
-                if (message != null)
+                
+            if (message != null)
                 {
                     sendMsg = Encoding.ASCII.GetBytes(name + ": " + Eingabe.Text);
                     if (client.Connected)
                     {
 
                         client.Send(sendMsg);
-                    }
+                        if (!keepText)
+                            Eingabe.Text = "";
+                }
                     else
                     {
                         client.Close();
