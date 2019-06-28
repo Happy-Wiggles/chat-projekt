@@ -4,13 +4,17 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="Chat_Projekt.Page1">
+             NavigationPage.HasBackButton="False"
+             x:Class="Chat_Projekt.Page1"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#0078d7">
     <ContentPage.Content>
+        
         <AbsoluteLayout >
             <Editor AbsoluteLayout.LayoutBounds=".85,.03,.641,.07" 
                     AbsoluteLayout.LayoutFlags="All" 
                     x:Name="ipEingabe" 
-                    Text="192.168.2.107 // 79.197.19.253" />
+                    Text="192.168.2.107" />
 
             <Editor AbsoluteLayout.LayoutBounds=".5,.4,.883,.1" 
                     AbsoluteLayout.LayoutFlags="All" 
@@ -22,7 +26,8 @@
                     Text="Bestätigen" 
                     x:Name="bestaetigenButton" 
                     Margin="10" 
-                    Clicked="BestaetigenButton_Clicked"/>
+                    Clicked="BestaetigenButton_Clicked"
+                    BackgroundColor="White"/>
 
         </AbsoluteLayout>
     </ContentPage.Content>

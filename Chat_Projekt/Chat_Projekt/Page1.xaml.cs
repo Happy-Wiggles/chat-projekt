@@ -13,15 +13,15 @@ using System.Net.Sockets;
 namespace Chat_Projekt
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
+
     public partial class Page1 : ContentPage
     {
+
         public string name = "";
         IPAddress ip;
         public Page1()
-        {
-            
-            InitializeComponent();
-            
+        {  
+            InitializeComponent(); 
         }
         
         private async void BestaetigenButton_Clicked(object sender, EventArgs e)
@@ -34,7 +34,6 @@ namespace Chat_Projekt
                 return;
             }
             ipEingabe.BackgroundColor = Color.Green;
-            await Navigation.PopAsync();
             await Navigation.PushAsync(new Page2(name,ip));
         }
     }

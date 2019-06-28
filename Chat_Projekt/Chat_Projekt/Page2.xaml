@@ -4,7 +4,9 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="Chat_Projekt.Page2" Title="Chat">
+             x:Class="Chat_Projekt.Page2" 
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#0078d7">
 
     <ContentPage.Content>
         <!-- Place new controls here -->
@@ -15,7 +17,8 @@
                    Text="Name" 
                    FontSize="Large"/>
             
-            <ScrollView x:Name="scrollBox" 
+            <ScrollView x:Name="scrollBox"
+                        BackgroundColor="#8fcdff"
                         HorizontalScrollBarVisibility="Always"  
                         AbsoluteLayout.LayoutBounds=".5,.2,.9,.7" 
                         AbsoluteLayout.LayoutFlags="All">
@@ -34,14 +37,27 @@
                     AutoSize="TextChanges"
                     />
             
-            <Button AbsoluteLayout.LayoutBounds=".5,1,.9,.1" 
+            
+            <Button AbsoluteLayout.LayoutBounds="0.94,1,0.105,0.1" 
+                    AbsoluteLayout.LayoutFlags="All" 
+                    Text="Text behalten"
+                    x:Name="keepTextButton"
+                    Margin="10"
+                    Clicked="KeepTextButton_Clicked"
+                    BackgroundColor="White"
+                    ></Button>
+            
+            <Button AbsoluteLayout.LayoutBounds=".25,1,.8,.1" 
                     AbsoluteLayout.LayoutFlags="All" 
                     Text="Senden" 
                     x:Name="SendenButton" 
                     Margin="10" 
-                    Clicked="SendenButton_Clicked"/>
+                    Clicked="SendenButton_Clicked"
+                    BackgroundColor="White"
+                />
         
         </AbsoluteLayout>
     </ContentPage.Content>
 
 </ContentPage>
+

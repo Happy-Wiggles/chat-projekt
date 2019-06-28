@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat_Projekt.Android", "Cha
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat_Projekt", "Chat_Projekt\Chat_Projekt\Chat_Projekt.csproj", "{56C337DD-0162-4EC7-8BBA-8FCBFF767BF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{3BF5643D-FFDC-42DD-87EC-BA0BBA730325}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "Server\Server.csproj", "{3BF5643D-FFDC-42DD-87EC-BA0BBA730325}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

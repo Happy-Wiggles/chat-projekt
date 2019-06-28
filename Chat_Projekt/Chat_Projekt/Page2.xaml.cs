@@ -20,7 +20,7 @@ namespace Chat_Projekt
         static IPEndPoint remoteEP ;
         Socket client ;
         string name = "";
-        
+        Boolean keepText=true;
 
         public Page2(string name, IPAddress ip)
         {
@@ -77,7 +77,8 @@ namespace Chat_Projekt
                 byte[] sendMsg = new byte[4096];
                 string message = "";
                 message = Eingabe.Text;
-
+                if (!keepText)
+                    Eingabe.Text = "";
                 if (message != null)
                 {
                     sendMsg = Encoding.ASCII.GetBytes(name + ": " + Eingabe.Text);
@@ -92,6 +93,15 @@ namespace Chat_Projekt
                     }
                 }
             }
+
+        private void KeepTextButton_Clicked(object sender, EventArgs e)
+        {
+            keepText = !keepText;
+            if (keepText)
+                keepTextButton.Text = "Text behalten";
+            else
+                keepTextButton.Text = "Text loeschen";
+        }
     }
 }
 

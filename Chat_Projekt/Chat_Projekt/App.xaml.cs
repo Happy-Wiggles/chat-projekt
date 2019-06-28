@@ -9,7 +9,7 @@ namespace Chat_Projekt
         public App()
         {
             InitializeComponent();
-            MainPage = new NavigationPage(new Page1());
+            MainPage = new NavigationPage(new Page0());
         }
 
         protected override void OnStart()

@@ -159,7 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Chat_Projekt\Chat_Projekt.csproj">
-      <Project>{AFDE44DC-78B0-4BB3-8512-BEB94F322E24}</Project>
+      <Project>{56C337DD-0162-4EC7-8BBA-8FCBFF767BF6}</Project>
       <Name>Chat_Projekt</Name>
     </ProjectReference>
   </ItemGroup>
